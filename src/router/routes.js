@@ -16,11 +16,21 @@ var routes = [
   {
     path: '/docs',
     component: Doc,
-    props: (route) => ({ id: route.query.id, has_model: route.query.has_model, thumbnail: route.query.thumbnail, related: route.query.related, keyword: route.query.keyword})
+    props: (route) => ({ id: route.query.id, 
+                          has_model: route.query.has_model, 
+                          thumbnail: route.query.thumbnail, 
+                          related: route.query.related, 
+                          keyword: route.query.keyword})
   },
   {
     path: '/videos',
-    component: Video
+    name: 'videos',
+    component: Video,
+    props: (route) => ({ id: route.query.id, 
+                          has_model: route.query.has_model, 
+                          thumbnail: route.query.thumbnail, 
+                          related: route.query.related, 
+                          keyword: route.query.keyword})
   },
   {
     path: '/search',
@@ -31,7 +41,8 @@ var routes = [
                           val: route.query.val, 
                           label: route.query.label,
                           search_in: route.query.search_in,
-                          filter: route.query.filter })
+                          filter: route.query.filter,
+                          json_data: route.query.json_data })
   },
   {
     path: '/about',
@@ -44,8 +55,8 @@ var routes = [
     component: Collection
   },
   {
-    path: '/personas',
-    name: 'personas',
+    path: '/contact',
+    name: 'contact',
     component: Personas
   },
   {

@@ -5,6 +5,7 @@ import pages from './components/pages.vue.js'
 import helperbar from './components/helperbar.vue.js'
 import armados from './components/armados.vue.js'
 import headers from './components/headers.vue.js'
+import grid from './components/grid.vue.js'
 
 export default{
     name: 'App',
@@ -23,7 +24,8 @@ export default{
 		'pages': pages,
 		'helperbar': helperbar,
 		'armados': armados,
-		'headers': headers
+		'headers': headers,
+		'grid': grid
 	},
 	computed: {
 		repo(){

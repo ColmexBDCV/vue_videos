@@ -12,6 +12,7 @@ types.Amparo = 'amparos';
 types.DataBase = 'databases';
 types.Request = 'requests';
 types.Journal = 'journals';
+types.Video = 'videos';
 
 
 

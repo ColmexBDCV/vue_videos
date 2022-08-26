@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cartillas Indigenas</title>
+    <title>Videos COLMEX</title>
 </head>
 
 <body class="body-special">
     <div id="app" style="height: 100%;">
         <router-view></router-view>
         <footer>
-            <div>
+            <div> 
                 <div style="background-color: #F5F5F5; height: 100px; border-bottom: solid 3px #E5E4E3; text-align: center;"
                     class="p-3">
                     <img src="src/assets/bdcv_project.png" class="me-5" alt="">
@@ -59,16 +59,65 @@
         </div>
     </template>
     <template id="home">
-        <div class="bg" style="height: 100%;">
-            <div
-                style="background-color: rgb(245 245 245); width: 100%; position: absolute; border-bottom: 5px solid #5E002B;">
-                <div class="container">
-                    <headers :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
-                        is_page="false"></headers>
+        <div class="" style="min-height: 100%;">
+            <div class="title-image">
+                <div class="title-background">
+                <!--<div
+                    style="background-color: rgb(245 245 245); width: 100%; position: absolute; border-bottom: 5px solid #5E002B;">-->
+                    <div class="container">
+                        <!--<headers :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
+                            is_page="false"></headers>-->
+                        <search :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
+                        is_page="false"></search>
+                        <div class="row w-100 mt-5">
+                            <div class="col-12 mt-5 first-title">
+                                <p>COLECCIÓN DIGITAL DE VIDEOS GRABADOS</p>
+                                <p class="two-line">Y ALMACENADOS EN EL COLEGIO DE MÉXICO</p>
+                                <p class="small">
+                                    Cursos, congresos, presentaciones, colecciones especiales de acceso gratuito.
+                                </p>
+                            </div>
+                        </div>                    
+                    </div>
                 </div>
-            </div>
-            <div class="container" style="height: 100%;">
-                <armados></armados>
+            </div>            
+            <div class="container mt-5">
+                <!--<armados></armados>-->
+                <div class="contained">
+                    <div class="row">
+                        <div class="col-3 col-normal mb-5" style="background: white;">
+                            <nav class="nav nav-facets">
+                                <span class="material-symbols-outlined">
+                                    home
+                                </span>
+                                <router-link class="nav-link" to="/">Inicio</router-link>
+                                <!--<a class="nav-link" aria-current="page" href="#">Inicio</a>-->
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+                                <!--<a class="nav-link" href="#">Sobre</a>-->
+                                <router-link class="nav-link" to='about'>Sobre</router-link>
+                                <span class="material-symbols-outlined">
+                                    contact_support
+                                </span>
+                                <!--<a class="nav-link" href="#">Contacto</a>-->
+                                <router-link class="nav-link" to="contact">Contacto</router-link>
+                            </nav>
+                            <facets :facets="repo.facets" :type="this.type" :val="this.val" :label="this.label"
+                                :params="this.params" linkto="search">
+                            </facets>
+                        </div>
+                        <div class="col-1 col-menu">
+                            <facets :facets="repo.facets" :type="this.type" :val="this.val" :label="this.label"
+                                :params="this.params" linkto="search">
+                            </facets>
+                        </div>
+                        <div class="col-9 show-all mb-5">
+                            <h3 style="color: #F5F5F5;">Nuestros Videos</h3>
+                            <grid :docs="repo.docs"></grid>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </template>
@@ -221,7 +270,7 @@
                         <div class="divsearch">
                             <input type="search" @keyup.enter="get_search" class="globalsearch" style="width: 70%;"
                                 placeholder="Búsqueda" v-model="search" name="lname" />
-                            <button type="button" class="btn-globalsearch"><span class="material-icons">
+                            <button type="button" @click="get_search" class="btn-globalsearch"><span class="material-icons">
                                     search
                                 </span></button>
                             <button type="button" id="btn-advanced" class="btn-globalsearch btn-advanced" 
@@ -272,36 +321,55 @@
         </div>
     </template>
     <template id="searchview">
-        <div>
-            <div style="background-color: rgb(245 245 245); width: 100%; border-bottom: 5px solid #5E002B;">
+        <div style="min-height: 80%;">
+            <div style="  width: 100%;">
                 <div class="container">
-                    <headers :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
-                        is_page="false"></headers>
+                    <!--<headers :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
+                        is_page="false" :json_data="json_data"></headers>-->
+                    <search :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
+                    is_page="false" :json_data="json_data"></search>
                 </div>
             </div>
-            <div class="bg-pages">
+            <div class="bg-pages mb-4">
                 <div class="container" style="height: 100%;">
                     <div class="contained">
-                        <div class="row">
-                            <div class="col-3 col-normal">
+                        <div class="row">                            
+                            <div class="col-3 col-normal mt-5" style="background-color: white;">
+                                <nav class="nav nav-facets">
+                                    <span class="material-symbols-outlined">
+                                        home
+                                    </span>
+                                    <router-link class="nav-link" to="/">Inicio</router-link>
+                                    <!--<a class="nav-link" aria-current="page" href="#">Inicio</a>-->
+                                    <span class="material-symbols-outlined">
+                                        info
+                                    </span>
+                                    <!--<a class="nav-link" href="#">Sobre</a>-->
+                                    <router-link class="nav-link" to='about'>Sobre</router-link>
+                                    <span class="material-symbols-outlined">
+                                        contact_support
+                                    </span>
+                                    <!--<a class="nav-link" href="#">Contacto</a>-->
+                                    <router-link class="nav-link" to="contact">Contacto</router-link>
+                                  </nav>
                                 <facets :facets="repo.facets" :type="this.type" :val="this.val" :label="this.label"
                                     :params="this.params">
                                 </facets>
                             </div>
-                            <div class="col-1 col-menu">
+                            <div class="col-1 col-menu mt-5">
                                 <facets :facets="repo.facets" :type="this.type" :val="this.val" :label="this.label"
                                     :params="this.params">
                                 </facets>
                             </div>
-                            <div class="col-9 show-all">
-                                <!--<search :keyword="keyword" :pages="repo.pages"></search>-->
-                                <helperbar :pages="repo.pages" ref="pagination" :total="repo.total_pages"></helperbar>
-                                <docs :docs="repo.docs"></docs>
-                                <pages :pages="repo.pages" ref="pagination" :total="repo.total_pages"></pages>
-                            </div>
-
+                            <div class="col-9 show-all mt-5">
+                                <div style="background-color: white;">
+                                    <!--<search :keyword="keyword" :pages="repo.pages"></search>-->
+                                    <helperbar :pages="repo.pages" ref="pagination" :total="repo.total_pages"></helperbar>
+                                    <docs :docs="repo.docs"></docs>
+                                    <pages :pages="repo.pages" ref="pagination" :total="repo.total_pages"></pages>
+                                </div>                                
+                            </div>                          
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -311,13 +379,13 @@
         <div class="docs_view container">
             <div class="row" v-for="doc in docs">
                 <router-link class="mt-5 mb-3"
-                    :to="{path: 'docs', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
+                    :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
                     <h6> <strong>{{ doc.title[0] }}</strong> </h6>
                 </router-link>
                 <!--<div class="bd-highlight">-->
                 <div class="col-md-auto">
                     <router-link
-                        :to="{path: 'docs', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
+                        :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
                         <img class="img-responsive" :src="get_url() + doc.thumbnail_path_ss ">
                     </router-link>
                 </div>
@@ -362,9 +430,48 @@
             </div>
         </div>
     </template>
+    <template id="grid">
+        <div class="docs_view container">
+            <div class="row">
+                <div class="col-3 mt-4 mb-4" v-for="doc in docs">
+                    
+                    <!--<div class="bd-highlight">-->
+                    <div class=" mb-4">
+                        <router-link
+                            :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
+                            <img class="img-responsive" width="200" height="113" :src="get_url() + doc.thumbnail_path_ss ">
+                        </router-link>
+                    </div>
+                    <router-link class="mt-5"
+                        :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
+                        <h6> <strong>{{ doc.title[0] }}</strong> </h6>
+                    </router-link>
+                    <!--<div class="col-md-auto justify-content-md-center">
+                        <div class="row" v-for="(metadata, key, index) in doc" v-if="check_metadata(metadata, key)">
+                            <div class="td-tittle col-5" style="text-align: right;">
+                                {{ $t(key) }}
+                            </div>
+                            <div v-if="isObject(metadata)" class="col-7" style="text-align: left;">
+                                <p v-for="m in metadata">
+                                    {{ m }}
+                                </p>
+                            </div>
+                            <div v-else style="text-align: left;" class="col-7">
+                                <p>
+                                    {{ metadata }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </template>
     <template id="pages">
         <div id="pages-div">
-            <nav class="mt-5" aria-label="Paginas disponibles" style="text-align: center;" v-if="pages != undefined">
+            <nav class="mt-5" aria-label="Paginas disponibles" style="text-align: center; margin: auto; width: 50%; padding: 10px;" v-if="pages != undefined">
                 <ul class="pagination" v-if="pages.total_count != 0">
                     <li class="page-item" v-if="pages.current_page != 1">
                         <a class="page-link" @click="next_page(pages.prev_page)" href="#">{{$t('previous')}}</a>
@@ -398,7 +505,7 @@
     </template>
     <template id="helperbar">
         <div>
-            <div style="margin-top: 10px;" v-if="filters.length > 0">
+            <div style="padding: 10px; margin: auto; background-color: var(--first-color); color: white;" v-if="filters.length > 0">
                 <label>{{$t('filters')}}: </label>
                 <span class="btn-group appliedFilter constraint filter filter-resource_type_sim"
                     v-for="filter in filters">
@@ -477,25 +584,37 @@
                         </ul>
                     </div>
                 </div>
-                <div v-else>
+                <div style="height: 78%;" v-else>
                     <h2>No se encontraron resultados.</h2>
                 </div>
             </div>
         </div>
     </template>
     <template id="search">
-        <div class="input-group">
-            <div v-if="search != ''" style="margin-bottom: 20px">La busqueda <strong>"{{search}}"</strong> arrojó
+        <div class="w-100 float-start align-middle mt-3">
+            <!--<div v-if="search != ''" style="margin-bottom: 20px">La busqueda <strong>"{{search}}"</strong> arrojó
                 <strong>"{{pages.total_count}}"</strong> resultados
-            </div>
+            </div>-->
             <form class="search-form">
-                <input type="text" class="form-control search-input" :placeholder="$t('search_term')" v-model="search"
+                <div class="input-group">
+                    <router-link to="/"><img src="./src/assets/biblio_logo.png" alt="" height="30" width="150" class="me-5"></router-link>
+                    <select name="coleccion" id="search_type">
+                        <option value="todo" >Todo</option>
+                        <option value="desc">Descripción</option>
+                        <option value="author">Autor</option>
+                        <option value="title">Titulo</option>                        
+                    </select>
+                    <input type="text" class="form-control search-input" :placeholder="$t('search_term')" v-model="search"
                     name="lname" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-search" @click="search_term">
-                        <span class="glyphicon glyphicon-search"></span> {{$t('go')}}
-                    </button>
-                </span>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-search" @click="get_search">
+                            <span class="material-symbols-outlined" style="color: #F5F5F5;">
+                                search
+                                </span> <!--{{$t('go')}}-->
+                        </button>
+                    </span>
+                    <router-link class="ms-3 text-light" to="advanced">Busqueda Avanzada</router-link>
+                  </div>              
             </form>
         </div>
     </template>

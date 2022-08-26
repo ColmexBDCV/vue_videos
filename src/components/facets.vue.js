@@ -3,7 +3,7 @@ import filter_data from '../../functions.js'
 
 export default {
     name: "facets",
-    props: ["facets", "params", "type", "val", "label"],
+    props: ["facets", "params", "type", "val", "label", "linkto"],
     template: "#facetas",
     components:{
         'facetModal': facetModal
@@ -18,17 +18,21 @@ export default {
     },
     methods: {
         query(type, val, label) {
-            var params = this.$store.getters['principal/url'].split("?");
-            var urlParams = new URLSearchParams(this.$store.getters['principal/url'].split('?')[1]);
-            if(!urlParams.has('f['+ type +'][]')){
-                urlParams.set('f['+ type +'][]', val);
-            } 
-            else urlParams.append('f['+ type +'][]', val);
+            if(this.linkto != undefined){
+                this.$router.push({ path: '/search?type='+ type +'&val='+ val +'&label='+ label });
+            }else{
+                var params = this.$store.getters['principal/url'].split("?");
+                var urlParams = new URLSearchParams(this.$store.getters['principal/url'].split('?')[1]);
+                if(!urlParams.has('f['+ type +'][]')){
+                    urlParams.set('f['+ type +'][]', val);
+                } 
+                else urlParams.append('f['+ type +'][]', val);
 
-            this.$store.commit('principal/set_url', params[0] + "?" + urlParams.toString());
-            //console.log("URL_FINAL_FACETS: " + this.$store.getters['principal/url']);
-            this.get_data();
-            this.$store.commit('filters/set_filter', {label, val, type});
+                this.$store.commit('principal/set_url', params[0] + "?" + urlParams.toString());
+                //console.log("URL_FINAL_FACETS: " + this.$store.getters['principal/url']);
+                this.get_data();
+                this.$store.commit('filters/set_filter', {label, val, type});
+            }
 		},
         delete_query: function (type, val, label) {
             this.$store.dispatch('filters/delete_query', {type, val, label});

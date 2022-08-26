@@ -114,22 +114,23 @@ export default{
             this.map = L.map('maps', {
                 center: [23, -102],
                 zoom: 5,
-                layers: [grayscale]
+                layers: [satellite]
             });
             var baseLayers = {
                 'Grayscale': grayscale,
                 'Streets': streets,
                 'Satellite': satellite
             };
-            //var layerControl = L.control.layers(baseLayers).addTo(this.map);
+            var layerControl = L.control.layers(baseLayers).addTo(this.map);
             
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            /*L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributor',    
                 maxZoom: 18,
                 id: 'mapbox/streets-v11',
                 tileSize: 512,
                 zoomOffset: -1,
-            }).addTo(this.map);
+            }).addTo(this.map);*/
+
             var marker = L.marker([this.geonames_data.lat, this.geonames_data.lng]).addTo(this.map);
             marker.bindPopup(this.geonames_data.name + ", " + this.geonames_data.adminName2 + ", " + this.geonames_data.adminName1).openPopup();
         },

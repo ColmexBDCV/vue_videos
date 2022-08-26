@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lato&family=Playfair+Display&display=swap');
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
 .header {
   display: inline-block;
@@ -417,7 +418,7 @@
 
 .form-control:focus {
   border: 1px solid #BCE2D3;
-  box-shadow: none;
+  box-shadow: none !important;
 }
 
 .pdf-viewer {
@@ -449,7 +450,8 @@
 
 .search-form .form-control{
   float: left;
-  width: 90%;
+  width: 65%;
+  padding: 0.1rem 0.5rem;
 }
 
 .order-by{
@@ -654,7 +656,7 @@
 }
 
 .btn-per_pagina {
-  color: rgb(255, 255, 255) !important;
+  /*color: rgb(255, 255, 255) !important;*/
   border: 1px solid #DCE4E3;
   background-color: #FFFFFF;
 }
@@ -755,11 +757,12 @@
 .filter>.btn {
   border: 1px solid #bce2d4;
   background: whitesmoke;
+  border-radius: 0px;
 }
 
 .remove-all {
   float: right;
-  color: #2A2E32;
+  color: white;
   text-decoration: underline;
 }
 
@@ -804,6 +807,7 @@
   font-size: 1.6rem;
   padding: 5px 10px;
   border-radius: 0px;
+  border: none;
 }
 
 .order-by ul li{
@@ -840,17 +844,114 @@
   /*display: table-header-group;*/
 }
 
-@media (min-width: 1400px){
-  .container, 
-  .container-lg, 
-  .container-md, 
-  .container-sm, 
-  .container-xl, 
-  .container-xxl {
-      /*max-width: 1140px !important;*/
-      /*padding: 0px 100px 0px 100px;*/
+@media (max-width: 768px){
+  .first-title{
+      color: rgb(245 245 245); 
+      font-family: 'Anton', sans-serif;
+      font-size: 40px;
+  }
+
+  .first-title .two-line{
+      margin-top: -35px;
+  }
+
+  .first-title .small{
+      font-family: 'Open Sans'; 
+      font-style: italic; 
+      font-weight: 900; 
+      margin-top: -20px;
+      font-size: 14px;
+  }
+  .title-image{
+      width: 100%; 
+      height: 250px; 
+      background-image: url(../src/assets/colmex_wall.jpg); 
+      background-repeat: no-repeat;
+      text-align: justify; 
+      background-size: cover; 
+      background-position: 0% 70%;
+  }
+  .title-background{
+    background-color: rgb(45 45 45 / 68%); 
+    height: 250px;
+  }
+
+  .menu-facetas .navbar-collapse{
+    position: fixed;
+  }
+
+  .show-all{
+    width: 100% !important;
   }
 }
+
+@media (max-width: 1400px) and (min-width: 769px){
+  .first-title{
+      color: rgb(245 245 245); 
+      font-family: 'Anton', sans-serif;
+      font-size: 55px;
+  }
+
+  .first-title .two-line{
+      margin-top: -35px;
+  }
+
+  .first-title .small{
+      font-family: 'Open Sans'; 
+      font-style: italic; 
+      font-weight: 900; 
+      margin-top: -20px;
+      font-size: 14px;
+  }
+  .title-image{
+      width: 100%; 
+      height: 300px; 
+      background-image: url(../src/assets/colmex_wall.jpg); 
+      background-repeat: no-repeat;
+      text-align: justify; 
+      background-size: cover; 
+      background-position: 0% 70%;
+  }
+  .title-background{
+    background-color: rgb(45 45 45 / 68%); 
+    height: 300px;
+  }
+}
+
+@media (min-width: 1400px){
+  .first-title{
+      color: rgb(245 245 245); 
+      font-family: 'Anton', sans-serif;
+      font-size: 80px;
+  }
+
+  .first-title .two-line{
+      margin-top: -50px;
+  }
+
+  .first-title .small{
+      font-family: 'Open Sans'; 
+      font-style: italic; 
+      font-weight: 900; 
+      margin-top: -40px;
+      font-size: 14px;
+  }
+  .title-image{
+      width: 100%; 
+      height: 400px; 
+      background-image: url(../src/assets/colmex_wall.jpg); 
+      background-repeat: no-repeat;
+      text-align: justify; 
+      background-size: cover; 
+      background-position: 0% 70%;
+  }
+  .title-background{
+    background-color: rgb(45 45 45 / 68%); 
+    height: 400px;
+  }
+}
+
+
 
 .nav-horizontal{
   font-size: 1.5rem;
@@ -884,6 +985,7 @@
 .title-docs{
   margin-bottom: 25px;
   margin-top: 25px;
+  color: #FFFFFF;
 }
 
 .button-docs .btn-modal {
@@ -1045,6 +1147,8 @@
 .menu-facetas{
   z-index: 9;
   background-color: transparent !important;
+  width: 100%;
+  display: block !important;
 }
 
 .pagination li {

@@ -1,12 +1,14 @@
 <template id="advanced">
-    <div class="bg-pages about-page">
-        <div style="background-color: rgb(245 245 245); width: 100%; border-bottom: 5px solid #5E002B;">
+    <div style="min-height: 80%;">
+        <div style="  width: 100%;">
             <div class="container">
-                <headers :keyword="search" :search_in="search_in" is_page="true"></headers>
+                <!--<headers :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
+                    is_page="false" :json_data="json_data"></headers>-->
+                <search :keyword="search" :search_in="search_in" is_page="true"></search>
             </div>
         </div>
-        <div class="container" style="height: 100%;">
-            <div class="">
+        <div class="container bg-pages" style="height: 100%;">
+            <div class="advanced-form">
                 <div class="row">
                     <div class="col">
                         <div class="title">
@@ -15,6 +17,15 @@
                     </div>
                     <div>
                         <form action="" method="get">
+                            <div class="mb-3">
+                                Encuentra recursos que coincidan con
+                                    <select v-model="search_type">
+                                        <option value="OR" selected>cualquiera de los</option>
+                                        <option value="AND">todos los</option>
+                                    </select>
+                                terminos.
+
+                            </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Todos los campos</label>
                                 <input type="text" v-model="all_fields" class="form-control" id="exampleFormControlInput1" placeholder="Palabra clave">
@@ -77,7 +88,7 @@
                             </div>
                             <div class="mb-3">
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+                                    <button type="submit" v-on:click="search_advanced()" class="btn btn-primary mb-3">Buscar</button>
                                 </div>                                    
                             </div>
                         </form>                        

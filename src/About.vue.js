@@ -1,9 +1,11 @@
 import headers from './components/headers.vue.js'
+import search from './components/search.vue.js'
 export default{
     name: 'about',
     template: '#about',
     components:{
-        'headers': headers, 
+        'headers': headers,
+        'search': search,
     },
     data() {
         return {

@@ -1,41 +1,82 @@
 <template id="videoview">
     <div class="videos" style="">
-        <div class="row">
-            <!--<router-link :to="{path: 'docs', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment}}">
-                <h3> {{ doc.title[0] }} </h3>
-            </router-link>-->
-            <div class="col-sm-6" v-for="doc in repo.docs">
-                <div class="d-flex bd-highlight">
-                    <div class="p-2 flex-fill-md bd-highlight">
-                        <!--<img class="img-responsive" :src="get_url() + doc.thumbnail_path_ss ">-->
-                        <video width="500" :src="get_url() + 'downloads/' + doc.file_set_ids +'?file=webm&locale=es'" controls>
-                            <source :src="'/downloads/' + doc.file_set_ids +'?file=webm&locale=es'" type="video/webm">
-                                <source :src="'/downloads/' + doc.file_set_ids +'?file=mp4&locale=es'" type="video/mp4">                    
-                                Your browser does not support the video tag.
-                        </video>
+        <div style="background-color: rgb(245 245 245); width: 100%; border-bottom: 5px solid #5E002B;">
+            <div class="container">
+                <search></search>
+            </div>
+        </div>
+        <div class="container" style="height: 100%;">
+            <div class="contained">
+                <div class="col-sm-12 docs-view">
+                    <div class="button-docs col-sm-12">
+                        <button type="button" class="btn" v-if="keyword != undefined">
+                            <router-link :to="'/search?keyword=' + keyword" style="color:black; font-style: normal; text-decoration: none;"> << {{$t('back_docs')}}
+                            </router-link>
+                        </button>
+                        <button type="button" class="btn" v-if="keyword == undefined">
+                            <router-link to="/search" style="/*color:whitesmoke;*/ font-style: normal; text-decoration: none; vertical-align: middle;"> <span class="material-icons">
+                                arrow_back
+                                </span> {{$t('back_docs')}}
+                            </router-link>
+                        </button>
+                    </div>                    
+                    <div class="col-md-12">
+                        <video :src="this.$store.getters['principal/base_url'] + 'downloads/'+ related" controls autoplay type="video/mp4" style="width: 100%;"></video>
+                    </div>
+                    <div>
+                        <div class="title-docs col-sm-12">
+                            <div class="title-docs" v-if="doc.title != undefined">
+                                <strong><h2>{{doc.title[0]}}</h2></strong>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-metadatos">
+                                <tbody v-for="(metadata, key, index) in doc" v-if="filter_key(metadata,key)">
+                                    <tr>
+                                        <th>
+                                            {{ $t(key) }}
+                                        </th>
+                                    </tr>    
+                                    <tr>
+                                        <td v-if="typeof metadata == 'object'">
+                                            <div v-for="m in metadata">
+                                                <dl v-if="key == 'table_of_contents'">
+                                                    <dd v-for="content in split_content(m)">
+                                                        {{ content }}
+                                                    </dd>
+                                                </dl>
+                                                <a v-if="key != 'table_of_contents'" :href="'./#/search?type=' + key + '_sim&val=' + m +'&label=' + $t(key)">{{ m }}</a>
+                                            </div>
+                                        </td>
+                                        <td v-else>
+                                            <p v-if="key != 'handle'">
+                                                {{ metadata }}
+                                            </p>
+                                            <p v-if="key == 'handle'">
+                                                <a target="_blank" :href="metadata"> {{ metadata }}</a>
+                                            </p>
+                                        </td>
+                                    </tr>                    
+                                </tbody>
+                                <!--<tfoot>
+                                    <tr v-if="related != undefined">
+                                        <th>
+                                            {{ $t('download') }}
+                                        </th>                            
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                <a
+                                                    :href="this.$store.getters['principal/base_url'] + 'downloads/'+ related">{{ $t('down_label') }}</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tfoot>-->
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <!--<div class="p-2 flex-fill bd-highlight">
-                    <table class="table table-docs">
-                        <tbody>
-                            <tr v-for="(metadata, key, index) in doc" v-if="check_metadata(metadata, key)">
-                                <th style="text-align: right;">
-                                    {{ $t(key) }}
-                                </th>
-                                <td v-if="isObject(metadata)" style="text-align: left;">
-                                    <p v-for="m in metadata">
-                                        {{ m }}
-                                    </p>
-                                </td>
-                                <td v-else style="text-align: left;">
-                                    <p>
-                                        {{ metadata }}
-                                    </p>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
             </div>
         </div>
     </div>
