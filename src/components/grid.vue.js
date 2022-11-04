@@ -1,9 +1,15 @@
 import {field_filter} from '../../functions.js'
+import filter_data from '../../functions.js'
 
 export default {
     name: 'grid',
-    props: ['docs', 'keyword'],
+    props: ['docs', 'keyword', 'collections'],
     template: "#grid",
+    data: function(){
+        return{
+            docs_collection: [],
+        }
+    },
     methods: {
         get_url(){
             return this.$store.getters['principal/base_url']
@@ -28,6 +34,34 @@ export default {
         isObject(o) {
             //console.log("keyword: " + this.keyword);
             return typeof o == "object"
+        },
+        filter_collections(){
+            var index = 0;
+            this.docs_collection = {"collections":[]};
+            var tmp_collections = [];
+            this.collections.forEach(element => {
+                //alert(element.name);
+                var url = this.get_url() + "/catalog.json?f%5Bmember_of_collections_ssim%5D%5B%5D=" + element.label;
+                
+                axios.get(url)
+                    .then(response => {
+                        tmp_collections.push({"name": element.label,
+                            "docs": filter_data(response.data.response.docs)});
+                        //docs_collection[index] = filter_data(response.data.response.docs);
+                            //console.log(JSON.stringify(this.docs_collection.collections));
+                        //return this.docs_collection;
+                    })
+                index++;
+            });
+            this.docs_collection.collections = tmp_collections;
+        },
+    },
+    watch:{
+        docs_collection(){
+            return this.docs_collection;
+        },
+        collections(){
+            this.filter_collections();
         }
     }
 }

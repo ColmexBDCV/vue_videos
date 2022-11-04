@@ -11,6 +11,7 @@ export default {
         url: ENV.THEMATIC_URL,
         video_url: ENV.VIDEO_URL,
         modalFacets: false,
+        collections: [],
     },
     mutations: {
         set_repo(state, repo) {
@@ -21,6 +22,16 @@ export default {
         },
         set_modalFacets(state, value){
             state.modalFacets = value;
+        },
+        set_collections(state, value){
+            value.facets.forEach(element => {
+                //alert(element.name);
+                if(element.name == "member_of_collections_ssim"){                      
+                    //alert(JSON.stringify(element.items));
+                    state.collections= element.items;
+                    return false;
+                }
+            });
         }
     },
     getters: {
@@ -44,7 +55,10 @@ export default {
         },
         video_url(state){
             return state.video_url;
-        }
+        },
+        collections(state){
+            return state.collections;
+        },
     },
     actions: {
         async get_data({ state, commit },send_url) {
@@ -53,7 +67,8 @@ export default {
                .then(response => {
                    var repository = filter_data(response.data.response);
                    commit('set_repo', repository);
+                   commit('set_collections', repository);
                })
        }
-    }
+    },
 }

@@ -68,7 +68,7 @@
                         <!--<headers :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
                             is_page="false"></headers>-->
                         <search :keyword="keyword" :pages="repo.pages" :filter="filter" :search_in="search_in"
-                        is_page="false"></search>
+                        is_page="true"></search>
                         <div class="row w-100 mt-5">
                             <div class="col-12 mt-5 first-title">
                                 <p>COLECCIÓN DIGITAL DE VIDEOS GRABADOS</p>
@@ -112,9 +112,11 @@
                                 :params="this.params" linkto="search">
                             </facets>
                         </div>
-                        <div class="col-9 show-all mb-5">
-                            <h3 style="color: #F5F5F5;">Nuestros Videos</h3>
-                            <grid :docs="repo.docs"></grid>
+                        <div class="col-9 show-all mb-5">                            
+                            <div>
+                                &nbsp;
+                                <grid :docs="repo.docs" :collections="collections"></grid>
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -129,7 +131,7 @@
                     <div class="col-12">
                         <div class="input-group">
                             <input type="text" class="form-control search-input" :placeholder="$t('search_term')"
-                                v-model="search" name="keyword" @keyup.enter="send_data()" />
+                                v-model="search" name="keyword" <!--@keyup.enter="send_data()"--> />
                             <button class="btn btn-primary" type="button" @click="send_data()">
                                 <span class="material-icons">search</span> </button>
                             <button class="btn btn-primary" v-on:click="show = !show" type="button"><span
@@ -268,7 +270,7 @@
                             </ul>
                         </div>
                         <div class="divsearch">
-                            <input type="search" @keyup.enter="get_search" class="globalsearch" style="width: 70%;"
+                            <input type="search" <!--@keyup.enter="get_search"--> class="globalsearch" style="width: 70%;"
                                 placeholder="Búsqueda" v-model="search" name="lname" />
                             <button type="button" @click="get_search" class="btn-globalsearch"><span class="material-icons">
                                     search
@@ -386,10 +388,13 @@
                 <div class="col-md-auto">
                     <router-link
                         :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
-                        <img class="img-responsive" :src="get_url() + doc.thumbnail_path_ss ">
+                        <!--<img class="play-responsive" src="src/assets/play_video.png">-->
+                        <video :src="get_url() + 'downloads/'+ doc.hasRelatedMediaFragment" onmouseover="this.play(); this.muted = false;" onmouseout="this.pause();"  muted type="video/mp4" class="img-responsive"></video>
+                        <!--<img class="img-responsive" :src="get_url() + doc.thumbnail_path_ss ">-->
                     </router-link>
                 </div>
-                <div class="col-md-auto justify-content-md-center">
+                <!--<div class="col-md-auto justify-content-md-center">-->
+                    <div class="col-5 text-start">
                     <!--<table class="table table-docs">
                         <tbody>
                             <tr v-for="(metadata, key, index) in doc" v-if="check_metadata(metadata, key)">
@@ -432,39 +437,23 @@
     </template>
     <template id="grid">
         <div class="docs_view container">
-            <div class="row">
-                <div class="col-3 mt-4 mb-4" v-for="doc in docs">
-                    
-                    <!--<div class="bd-highlight">-->
+            <div class="row" v-for="collection in docs_collection.collections">
+                <div class="col-12 me-5 ms-3">
+                    &nbsp;
+                    <h3 style="color: #F5F5F5;" class="float-start">{{ collection.name }}</h3>
+                    <router-link :to="{path: 'search', query: {type: 'member_of_collections_ssim', val: collection.name, label: 'Colecciones'}}" type="button" class="btn btn-primary float-end">Ver más +</router-link>
+                </div>
+                <div class="col-3 mt-4 mb-4" v-for="doc in collection.docs.slice(0, 4)">
                     <div class=" mb-4">
                         <router-link
                             :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
-                            <img class="img-responsive" width="200" height="113" :src="get_url() + doc.thumbnail_path_ss ">
+                            <video onmouseover="this.play(); this.muted = false;" onmouseout="this.pause();"  :src="get_url() + 'downloads/'+ doc.hasRelatedMediaFragment_ssim" muted="muted" type="video/mp4" class="img-responsive"></video>
                         </router-link>
                     </div>
                     <router-link class="mt-5"
                         :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
-                        <h6> <strong>{{ doc.title[0] }}</strong> </h6>
+                        <h6> <strong>{{ doc.title_tesim[0] }}</strong> </h6>
                     </router-link>
-                    <!--<div class="col-md-auto justify-content-md-center">
-                        <div class="row" v-for="(metadata, key, index) in doc" v-if="check_metadata(metadata, key)">
-                            <div class="td-tittle col-5" style="text-align: right;">
-                                {{ $t(key) }}
-                            </div>
-                            <div v-if="isObject(metadata)" class="col-7" style="text-align: left;">
-                                <p v-for="m in metadata">
-                                    {{ m }}
-                                </p>
-                            </div>
-                            <div v-else style="text-align: left;" class="col-7">
-                                <p>
-                                    {{ metadata }}
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>-->
-                    <!--</div>-->
                 </div>
             </div>
         </div>
@@ -595,27 +584,27 @@
             <!--<div v-if="search != ''" style="margin-bottom: 20px">La busqueda <strong>"{{search}}"</strong> arrojó
                 <strong>"{{pages.total_count}}"</strong> resultados
             </div>-->
-            <form class="search-form">
+            <div class="search-form">
                 <div class="input-group">
                     <router-link to="/"><img src="./src/assets/biblio_logo.png" alt="" height="30" width="150" class="me-5"></router-link>
-                    <select name="coleccion" id="search_type">
+                    <select name="coleccion" id="search_type" v-model="lcl_search">
                         <option value="todo" >Todo</option>
                         <option value="desc">Descripción</option>
                         <option value="author">Autor</option>
                         <option value="title">Titulo</option>                        
                     </select>
-                    <input type="text" class="form-control search-input" :placeholder="$t('search_term')" v-model="search"
+                    <input type="text" class="form-control search-input" @keyup.enter="get_search()" :placeholder="$t('search_term')" v-model="search"
                     name="lname" />
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-search" @click="get_search">
-                            <span class="material-symbols-outlined" style="color: #F5F5F5;">
+                        <button type="button" class="btn btn-search" @click="get_search" >
+                            <span class="material-symbols-outlined mt-1" style="color: #F5F5F5;">
                                 search
                                 </span> <!--{{$t('go')}}-->
                         </button>
                     </span>
-                    <router-link class="ms-3 text-light" to="advanced">Busqueda Avanzada</router-link>
+                    <router-link class="ms-3 mt-1 text-light" to="advanced">Busqueda Avanzada</router-link>
                   </div>              
-            </form>
+            </div>
         </div>
     </template>
     <script type="text/template" id="facetas">

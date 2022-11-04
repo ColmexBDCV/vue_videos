@@ -11,7 +11,7 @@ export default{
         return {
             search: "",
             collection: "todo",
-            search_in: "all_fields",
+            search_in: "todo",
             all_fields: "",
             title: "",
             author: "",

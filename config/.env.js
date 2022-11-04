@@ -29,7 +29,7 @@ export default {
                   "place_of_publication",
                 ],
   FACET_FILTER: [
-                  //"Collections",
+                  "Collections",
                   "Resource Type",
                   "Creator",
                   "Contributor",

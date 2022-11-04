@@ -6,7 +6,7 @@ export default{
         return {
             search: "",
             lcl_keyword: this.keyword,
-            lcl_search: this.search_in,
+            lcl_search: this.search_in == "" ? "todo" : this.search_in,
             lcl_filter: this.filter,
             json_fields: {},
             array_fields: [

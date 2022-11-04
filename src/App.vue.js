@@ -30,6 +30,9 @@ export default{
 	computed: {
 		repo(){
 			return this.$store.state.principal.repo;
+		},
+		collections(){
+			return this.$store.state.principal.collections;
 		}		
 	},
 	created: function () {
