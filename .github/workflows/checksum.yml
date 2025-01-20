@@ -1,0 +1,31 @@
+name: Generate Checksum
+
+on:
+  push:
+    tags:
+      - '*'  # Se dispara cuando se hace push de *cualquier* tag.
+
+jobs:
+  generate-checksum:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          # Asegura que haga checkout exactamente del tag que disparó la acción.
+          ref: ${{ github.ref }}
+
+      - name: Create tarball
+        run: tar -czf source.tar.gz .
+
+      - name: Compute checksum
+        run: sha256sum source.tar.gz > checksum.txt
+
+      - name: Show checksum
+        run: cat checksum.txt
+
+      - name: Upload checksum artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: tag-checksum
+          path: checksum.txt
