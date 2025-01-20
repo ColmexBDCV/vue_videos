@@ -25,7 +25,7 @@ jobs:
         run: cat checksum.txt
 
       - name: Upload checksum artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: tag-checksum
           path: checksum.txt
