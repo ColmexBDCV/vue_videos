@@ -16,4 +16,6 @@ jobs:
 
       - name: Checksum
         run: sha256sum source.tar.gz > checksum.txt
-
+      
+      - name: Show checksum
+        run: cat checksum.txt
