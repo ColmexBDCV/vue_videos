@@ -16,7 +16,7 @@ jobs:
           ref: ${{ github.ref }}
 
       - name: Create tarball
-        run: tar -czf source.tar.gz . --exclude=.git
+        run: tar -czf source.tar.gz --exclude=.git .
 
       - name: Compute checksum
         run: sha256sum source.tar.gz > checksum.txt
