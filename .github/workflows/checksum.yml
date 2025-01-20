@@ -1,35 +1,19 @@
-name: Generate Checksum
-
+name: Get GitHub TAR
 on:
   push:
     tags:
-      - '*'  # Se dispara cuando se hace push de *cualquier* tag.
-
+      - '*'
 jobs:
-  generate-checksum:
+  download-tar:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          # Asegura que haga checkout exactamente del tag que disparó la acción.
-          ref: ${{ github.ref }}
-
-      - name: Create tarball
+      - name: Download GitHub-generated TAR
         run: |
-          tar --exclude=.git \
-              --exclude=node_modules \
-              --exclude=.github \
-              -czf source.tar.gz .
+          # El nombre del tag está en `github.ref_name`, 
+          # y el repo en `github.repository` 
+          wget -O source.tar.gz \
+            "https://github.com/${{ github.repository }}/archive/refs/tags/${{ github.ref_name }}.tar.gz"
 
-      - name: Compute checksum
+      - name: Checksum
         run: sha256sum source.tar.gz > checksum.txt
 
-      - name: Show checksum
-        run: cat checksum.txt
-
-      - name: Upload checksum artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: tag-checksum
-          path: checksum.txt
