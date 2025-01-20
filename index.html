@@ -441,17 +441,17 @@
                 <div class="col-12 me-5 ms-3">
                     &nbsp;
                     <h3 style="color: #F5F5F5;" class="float-start">{{ collection.name }}</h3>
-                    <router-link :to="{path: 'search', query: {type: 'member_of_collections_ssim', val: collection.name, label: 'Colecciones'}}" type="button" class="btn btn-primary float-end">Ver más +</router-link>
+                    <router-link :to="{path: 'search', query: {type: 'thematic_collection_sim', val: collection.name, label: 'Colecciones'}}" type="button" class="btn btn-primary float-end">Ver más +</router-link>
                 </div>
                 <div class="col-3 mt-4 mb-4" v-for="doc in collection.docs.slice(0, 4)">
-                    <div class=" mb-4">
+                    <div class=" mb-4"><!--https://repositorio.colmex.mx/downloads/vm40xt51m?locale=es-->
                         <router-link
-                            :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
-                            <video onmouseover="this.play(); this.muted = false;" onmouseout="this.pause();"  :src="get_url() + 'downloads/'+ doc.hasRelatedMediaFragment_ssim" muted="muted" type="video/mp4" class="img-responsive"></video>
+                            :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment_ssim, keyword: keyword}}">
+                            <video onmouseover="this.play(); this.muted = false;" onmouseout="this.pause(); this.load();" :poster="get_url() + doc.thumbnail_path_ss" :src="get_url() + 'downloads/'+ doc.hasRelatedMediaFragment_ssim" muted="muted" type="video/mp4" class="img-responsive"></video>
                         </router-link>
                     </div>
                     <router-link class="mt-5"
-                        :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment, keyword: keyword}}">
+                        :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment_ssim, keyword: keyword}}">
                         <h6> <strong>{{ doc.title_tesim[0] }}</strong> </h6>
                     </router-link>
                 </div>
@@ -632,21 +632,23 @@
                                                     <div class="accordion-body">
                                                         <ul class="list-group">
                                                             <li v-for="item in facet.items.slice(0, 5)" class="list-group-item bg-facetas">
-                                                                <span v-if="compare_params(facet.name, item.value)" class="facet-label">
-                                                                    <span class="selected" @click="delete_query(facet.name, item.value, $t(facet.label.toLowerCase()))">
-                                                                    <i class="fa fa-check-square-o fa-lg close" title="Quitar filtro" aria-hidden="true"></i>{{item.label}}</span>
-                                                                    <!--<a class="remove" @click="delete_query(facet.name, item.value, $t(facet.label.toLowerCase()))">
-                                                                        <span class="glyphicon glyphicon-remove"></span>
-                                                                        <span class="sr-only">[remove]</span>
-                                                                    </a>-->
-                                                                    <!--<button type="button" class="close" aria-label="Close" @click="delete_query(facet.name, item.value, $t(facet.label.toLowerCase()))">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>-->
-                                                                </span>
-                                                                <span v-else class="facet-label">
-                                                                    <a @click="query(facet.name,item.value, $t(facet.label.toLowerCase()))">
-                                                                    <i class="fa fa-square-o fa-lg close" title="" aria-hidden="true"></i>{{item.label}}</a>
-                                                                </span>
+                                                                <span v-if="item.label != 'Video'">
+                                                                    <span v-if="compare_params(facet.name, item.value)" class="facet-label">
+                                                                        <span class="selected" @click="delete_query(facet.name, item.value, $t(facet.label.toLowerCase()))">
+                                                                        <i class="fa fa-check-square-o fa-lg close" title="Quitar filtro" aria-hidden="true"></i>{{item.label}}</span>
+                                                                        <!--<a class="remove" @click="delete_query(facet.name, item.value, $t(facet.label.toLowerCase()))">
+                                                                            <span class="glyphicon glyphicon-remove"></span>
+                                                                            <span class="sr-only">[remove]</span>
+                                                                        </a>-->
+                                                                        <!--<button type="button" class="close" aria-label="Close" @click="delete_query(facet.name, item.value, $t(facet.label.toLowerCase()))">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>-->
+                                                                    </span>
+                                                                    <span v-else class="facet-label">
+                                                                        <a @click="query(facet.name,item.value, $t(facet.label.toLowerCase()))">
+                                                                        <i class="fa fa-square-o fa-lg close" title="" aria-hidden="true"></i>{{item.label}}</a>
+                                                                    </span>
+                                                                </span>                                                                
                                                             </li>
                                                             <li class="list-group-item facet-label bg-facetas" v-if="facet.items.length > 5  ">
                                                                 <a class="more_facets_link" @click="get_data_facet(facet.name)">{{$t('more')}} <span

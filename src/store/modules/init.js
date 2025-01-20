@@ -9,6 +9,7 @@ export default {
         link_url: ENV.LINK_URL,
         share_url: ENV.SHARE_URL,
         url: ENV.THEMATIC_URL,
+        url_aux: ENV.THEMATIC_URL_AUX,
         video_url: ENV.VIDEO_URL,
         modalFacets: false,
         collections: [],
@@ -26,7 +27,7 @@ export default {
         set_collections(state, value){
             value.facets.forEach(element => {
                 //alert(element.name);
-                if(element.name == "member_of_collections_ssim"){                      
+                if(element.name == "thematic_collection_sim"){                      
                     //alert(JSON.stringify(element.items));
                     state.collections= element.items;
                     return false;
@@ -69,6 +70,13 @@ export default {
                    commit('set_repo', repository);
                    commit('set_collections', repository);
                })
-       }
+       },
+       async reset_data({ commit, state, dispatch }) {
+        // Llamas a la mutación usando commit
+        commit('set_url', state.url_aux);
+      
+        // Si "get_data" es otra acción, la llamas con dispatch
+        await dispatch('get_data', state.url_aux);
+      }
     },
 }

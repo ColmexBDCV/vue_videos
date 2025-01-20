@@ -1,12 +1,10 @@
 export default {
-  //URL: 'https://repositorio.colmex.mx/catalog.json?f%5Bthematic_collection_sim%5D%5B%5D=Movimientos+armados',
-  //THEMATIC_URL: 'https://repositorio.colmex.mx/catalog.json?f%5Bthematic_collection_sim%5D%5B%5D=Movimientos+armados',
-  THEMATIC_URL: 'https://biblio-rep.colmex.mx/catalog.json?f%5Bthematic_collection_sim%5D%5B%5D=Videos+Colmex',
-  LINK_URL: 'https://repositorio.colmex.mx/catalog?f%5thematic_collection_sim%5D%5B%5D=Cartillas+indígenas',
+  THEMATIC_URL_AUX: 'https://repositorio.colmex.mx/catalog.json?f%5Bresource_type_sim%5D%5B%5D=Video',
+  THEMATIC_URL: 'https://repositorio.colmex.mx/catalog.json?f%5Bresource_type_sim%5D%5B%5D=Video',
+  LINK_URL: 'https://repositorio.colmex.mx/catalog?f%5Bresource_type_sim%5D%5B%5D=Video',
   SHARE_URL: 'https://sandbox.colmex.mx/~ecisneros/movimientos/#/docs',
-  BASE_URL: 'https://biblio-rep.colmex.mx/',
-  //BASE_URL: 'https://repositorio.colmex.mx/',
-  VIDEO_URL: 'https://biblio-rep.colmex.mx/catalog?f%5Bthematic_collection_sim%5D%5B%5D=Videos+Colmex',
+  BASE_URL: 'https://repositorio.colmex.mx/',
+  VIDEO_URL: 'https://repositorio.colmex.mx/catalog?f%5Bresource_type_sim%5D%5B%5D=Video',
   FIELD_FILTER: [ //"depositor",
                   //"title",
                   "handle",
@@ -60,7 +58,8 @@ export default {
                   "Contained In",
                   "Database",
                   //"Generic Type",
-                  "Type"
+                  "Type",
+                  "Thematic Collection"
               ],
   ARTICLE_FILTER: [
                     "creator",

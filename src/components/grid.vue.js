@@ -41,7 +41,7 @@ export default {
             var tmp_collections = [];
             this.collections.forEach(element => {
                 //alert(element.name);
-                var url = this.get_url() + "/catalog.json?f%5Bmember_of_collections_ssim%5D%5B%5D=" + element.label;
+                var url = this.get_url() + "/catalog.json?f%5Bresource_type_sim%5D%5B%5D=Video&f%5Bthematic_collection_sim%5D%5B%5D=" + element.label;
                 
                 axios.get(url)
                     .then(response => {
