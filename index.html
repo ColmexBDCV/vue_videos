@@ -444,7 +444,7 @@
                     <router-link :to="{path: 'search', query: {type: 'thematic_collection_sim', val: collection.name, label: 'Colecciones'}}" type="button" class="btn btn-primary float-end">Ver más +</router-link>
                 </div>
                 <div class="col-3 mt-4 mb-4" v-for="doc in collection.docs.slice(0, 4)">
-                    <div class=" mb-4"><!--https://repositorio.colmex.mx/downloads/vm40xt51m?locale=es-->
+                    <div class=" mb-4">
                         <router-link
                             :to="{path: 'videos', query: {id: doc.id, has_model: doc.has_model, thumbnail: doc.thumbnail_path_ss, related: doc.hasRelatedMediaFragment_ssim, keyword: keyword}}">
                             <video onmouseover="this.play(); this.muted = false;" onmouseout="this.pause(); this.load();" :poster="get_url() + doc.thumbnail_path_ss" :src="get_url() + 'downloads/'+ doc.hasRelatedMediaFragment_ssim" muted="muted" type="video/mp4" class="img-responsive"></video>
