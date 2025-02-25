@@ -58,7 +58,7 @@ export default {
                   "Contained In",
                   "Database",
                   //"Generic Type",
-                  "Type",
+                  //"Type",
                   "Thematic Collection"
               ],
   ARTICLE_FILTER: [
