@@ -24,6 +24,10 @@ export default{
     "contained in" : 'Incluido en:',
     photographer : 'Fotografia',
     "based near label": "Ubicación",
+    type: "Tipo de Objeto",
+    commentator: "Reseñista/Comentarista",
+    "organizer collective agent": "Autor congreso o reunión",
+    "thematic collection": "Colección Temática",
 
     //Translate for Docs and Docs View
     depositor: 'Subido por',
